@@ -2,4 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+.DS_store
 mitovizR.Rproj
+HG00119.vcf
