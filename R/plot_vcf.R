@@ -27,7 +27,8 @@ plot_vcf <- function(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
         geom_point(data = vars,
                    mapping = aes_string(x = 3, y = "POS"))
     if (save_plot == TRUE) {
-        ggsave(filename = "mitoviz_plot.png", plot = p)
+        ggsave(filename = "mitoviz_plot.png", plot = p,
+               height = 10.7, width = 9.46, units = "in")
     }
 
     return(p)
