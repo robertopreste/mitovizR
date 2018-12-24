@@ -1,0 +1,18 @@
+---
+title: "mitovizR"
+author: 
+  name: "Roberto Preste" 
+  email: "roberto.preste@gmail.com"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mitoviz}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
