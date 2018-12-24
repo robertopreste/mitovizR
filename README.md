@@ -1,7 +1,3 @@
-README
-================
-Roberto Preste
-2018-12-24
 
 mitovizR
 ========
