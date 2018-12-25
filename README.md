@@ -69,6 +69,6 @@ If you found a bug, or want to suggest an improvement, please feel free to open 
 Todo
 ----
 
--   Add option to set title to plot
+-   ~~Add option to set title to plot~~
 -   Add option to save plot to custom location and filename
 -   Plot variants from BED files

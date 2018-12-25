@@ -5,7 +5,7 @@
 \title{Plot variants from a VCF}
 \usage{
 plot_vcf(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
-  save_plot = FALSE, verbose = FALSE)
+  title = "", save_plot = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{vcf_file}{Path of the input VCF file}
@@ -14,9 +14,11 @@ plot_vcf(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
 
 \item{show_loci_legend}{Show legend for locus type colours (default = TRUE)}
 
+\item{title}{Set plot title (default = "")}
+
 \item{save_plot}{Save the current plot to a file named "mitoviz_plot.png" (default = FALSE)}
 
-\item{verbose}{Show messages returned by the \code{vcfR} package functions}
+\item{verbose}{Show messages returned by the \code{vcfR} package functions (default = FALSE)}
 }
 \value{
 p ggplot2 polar plot variants on the human mitochondrial genome
