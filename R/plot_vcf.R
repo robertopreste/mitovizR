@@ -8,6 +8,7 @@
 #' @param show_loci_legend Show legend for locus type colours (default = TRUE)
 #' @param title Set plot title (default = "")
 #' @param save_plot Save the current plot to a file named "mitoviz_plot.png" (default = FALSE)
+#' @param save_to Path or filename to which the current plot will be saved (default = "")
 #' @param verbose Show messages returned by the \code{vcfR} package functions (default = FALSE)
 #'
 #' @return p ggplot2 polar plot variants on the human mitochondrial genome
@@ -18,7 +19,7 @@
 #' @export
 
 plot_vcf <- function(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
-                     title = "", save_plot = FALSE, verbose = FALSE) {
+                     title = "", save_plot = FALSE, save_to = "", verbose = FALSE) {
     vcf <- read.vcfR(vcf_file, verbose = verbose)
     chrom <- create.chromR(vcf, verbose = verbose)
     vars <- as.data.frame(getFIX(chrom), stringsAsFactors = F)
@@ -29,7 +30,8 @@ plot_vcf <- function(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
                    mapping = aes_string(x = 3, y = "POS")) +
         labs(title = title)
     if (save_plot == TRUE) {
-        ggsave(filename = "mitoviz_plot.png", plot = p,
+        ggsave(filename = ifelse(save_to == "", "mitoviz_plot.png", save_to),
+               plot = p,
                height = 10.7, width = 9.46, units = "in")
     }
 
