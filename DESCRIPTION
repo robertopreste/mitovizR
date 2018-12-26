@@ -4,6 +4,8 @@ Title: Plot Human Mitochondrial Variants
 Version: 0.1.0
 Author: Roberto Preste
 Maintainer: Roberto Preste <roberto.preste@gmail.com>
+Authors@R: person("Roberto", "Preste", email = "roberto.preste@gmail.com", 
+                  role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5935-9542"))
 Description: Plot variants on the human mitochondrial genome. 
     Currently supports plotting variants contained in VCF files. 
 License: GPL-3 + file LICENSE
@@ -13,4 +15,5 @@ Imports: ggplot2, vcfR
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 URL: https://github.com/robertopreste/mitovizR
+BugReports: https://github.com/robertopreste/mitovizR/issues
 RoxygenNote: 6.1.1
