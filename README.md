@@ -53,6 +53,14 @@ plot_vcf("HG00119.vcf", show_loci_legend = FALSE)
 
 ![](man/figures/mitoviz_plot_no_loci_legend.png)
 
+A specific title can be added to the plot using the `title` option:
+
+``` r
+plot_vcf("HG00119.vcf", title = "My mito plot")
+```
+
+![](man/figures/mitoviz_plot_title.png)
+
 By default, the plot will be returned and shown; if you want to save the plot to a file, just use the `save_plot` option:
 
 ``` r
@@ -60,6 +68,12 @@ plot_vcf("HG00119.vcf", save_plot = TRUE)
 ```
 
 This will create a file named `mitoviz_plot.png` in the current working directory.
+
+It is also possible to save the plot to a specific path and/or with a customm filename, using the `save_to` option:
+
+``` r
+plot_vcf("HG00119.vcf", save_plot = TRUE, save_to = "my_folder/my_plot_name.png")
+```
 
 Help
 ----
@@ -70,5 +84,5 @@ Todo
 ----
 
 -   ~~Add option to set title to plot~~
--   Add option to save plot to custom location and filename
+-   ~~Add option to save plot to custom location and filename~~
 -   Plot variants from BED files
