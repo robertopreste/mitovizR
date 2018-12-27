@@ -10,11 +10,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # mitovizR  
 
-Plot variants on the human mitochondrial genome. Currently supports plotting variants contained in VCF files.  
+Plot variants on the human mitochondrial genome. Currently supports plotting variants contained in dataframes or VCF files.  
 
 ## Overview  
 
-mitovizR is a simple tool to plot human mitochondrial variants on a graphical representation of the human mitochondrial genome. It currently supports plotting variants stored in a VCF file, although other options are being developed (if you want to contribute, you're welcome!).  
+mitovizR is a simple tool to plot human mitochondrial variants on a graphical representation of the human mitochondrial genome. It currently supports plotting variants stored in a dataframe or a VCF file, although other options are being developed (if you want to contribute, you're welcome!).  
 
 ## Installation  
 
@@ -34,13 +34,38 @@ First of all, load the `mitovizR` package:
 library(mitovizR)
 ```
 
+The simplest example is when you already have a dataframe with a set of mitochondrial variants. In this case, a call to `plot_df` will plot all mitochondrial variants; **please note that variants position needs to be contained in a column named `POS`**.  
+
+```{r, eval=FALSE}
+minidf 
+```
+
+|CHROM |   POS|ID |REF |ALT |QUAL |FILTER |
+|:-----|-----:|:--|:---|:---|:----|:------|
+|chrMT |   709|NA |G   |A   |NA   |PASS   |
+|chrMT |   750|NA |A   |G   |NA   |PASS   |
+|chrMT |  1438|NA |A   |G   |NA   |PASS   |
+|chrMT |  3106|NA |CN  |C   |NA   |PASS   |
+|chrMT |  4769|NA |A   |G   |NA   |PASS   |
+|chrMT |  7028|NA |C   |T   |NA   |PASS   |
+|chrMT |  9389|NA |A   |G   |NA   |PASS   |
+|chrMT | 11719|NA |G   |A   |NA   |PASS   |
+|chrMT | 14905|NA |G   |A   |NA   |PASS   |
+|chrMT | 15452|NA |C   |A   |NA   |PASS   |
+
+```{r, eval=FALSE}
+plot_df(minidf)
+```
+
+![](man/figures/mitoviz_plot_df.png)
+
 The `plot_vcf` function allows to plot human mitochondrial variants contained in a VCF file. In this example, a VCF file named "HG00119.vcf" and present in the current working directory is used:  
 
 ```{r, eval=FALSE}
 plot_vcf("HG00119.vcf")
 ```
 
-![](man/figures/mitoviz_plot.png)
+![](man/figures/mitoviz_plot_vcf.png)
 
 It is also possible to specify whether the plot will show loci names and/or loci legend:  
 
@@ -88,7 +113,5 @@ If you found a bug, or want to suggest an improvement, please feel free to open 
 
 ## Todo  
 
-* ~~Add option to set title to plot~~  
-* ~~Add option to save plot to custom location and filename~~  
 * Plot variants from BED files  
 

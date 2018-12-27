@@ -7,7 +7,7 @@ Maintainer: Roberto Preste <roberto.preste@gmail.com>
 Authors@R: person("Roberto", "Preste", email = "roberto.preste@gmail.com", 
                   role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5935-9542"))
 Description: Plot variants on the human mitochondrial genome. 
-    Currently supports plotting variants contained in VCF files. 
+    Currently supports plotting variants contained in dataframes or VCF files. 
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
