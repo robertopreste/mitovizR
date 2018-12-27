@@ -20,10 +20,10 @@
 plot_df <- function(dataframe, show_loci_names = TRUE, show_loci_legend = TRUE,
                     title = "", save_plot = FALSE, save_to = "mitoviz_plot.png",
                     verbose = FALSE) {
-    vars <- as.numeric(dataframe$POS)
+    dataframe$POS <- as.numeric(dataframe$POS)
     p <- mito_plot(show_loci_names = show_loci_names,
                    show_loci_legend = show_loci_legend) +
-        geom_point(data = vars,
+        geom_point(data = dataframe,
                    mapping = aes_string(x = 3, y = "POS")) +
         labs(title = title)
     if (save_plot == TRUE) {
