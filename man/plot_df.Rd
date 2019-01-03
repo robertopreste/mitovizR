@@ -5,8 +5,7 @@
 \title{Plot variants from a dataframe}
 \usage{
 plot_df(dataframe, show_loci_names = TRUE, show_loci_legend = TRUE,
-  title = "", save_plot = FALSE, save_to = "mitoviz_plot.png",
-  verbose = FALSE)
+  title = "", save_plot = FALSE, save_to = "mitoviz_plot.png")
 }
 \arguments{
 \item{dataframe}{Name of the input dataframe; will need a `POS` column with variants position}
@@ -20,8 +19,6 @@ plot_df(dataframe, show_loci_names = TRUE, show_loci_legend = TRUE,
 \item{save_plot}{Save the current plot to a file (default = FALSE)}
 
 \item{save_to}{Path or filename to which the current plot will be saved (default = "mitoviz_plot.png")}
-
-\item{verbose}{Show messages returned by the \code{vcfR} package functions (default = FALSE)}
 }
 \value{
 p ggplot2 polar plot variants on the human mitochondrial genome
