@@ -3,7 +3,8 @@
 #' Adds a geom_point layer to the output of \code{\link{mito_plot}} showing
 #' mitochondrial variants contained in the given dataframe.
 #'
-#' @param dataframe Name of the input dataframe; will need a `POS` column with variants position
+#' @param dataframe Name of the input dataframe
+#' @param var_col Name of column containing variants position (default = "POS")
 #' @param show_loci_names Show labels of loci names on the genome (default = TRUE)
 #' @param show_loci_legend Show legend for locus type colours (default = TRUE)
 #' @param title Set plot title (default = "")
@@ -16,13 +17,15 @@
 #'
 #' @export
 
-plot_df <- function(dataframe, show_loci_names = TRUE, show_loci_legend = TRUE,
+plot_df <- function(dataframe, var_col = "POS",
+                    show_loci_names = TRUE, show_loci_legend = TRUE,
                     title = "", save_plot = FALSE, save_to = "mitoviz_plot.png") {
-    dataframe$POS <- as.numeric(dataframe$POS)
+    var_col_idx <- which(colnames(dataframe) == var_col)
+    dataframe[, var_col_idx] <- as.numeric(dataframe[, var_col_idx])
     p <- mito_plot(show_loci_names = show_loci_names,
                    show_loci_legend = show_loci_legend) +
         geom_point(data = dataframe,
-                   mapping = aes_string(x = 3, y = "POS")) +
+                   mapping = aes_string(x = 3, y = var_col)) +
         labs(title = title)
     if (save_plot == TRUE) {
         ggsave(filename = save_to, plot = p,
