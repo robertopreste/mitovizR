@@ -6,7 +6,7 @@ author:
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{mitoviz}
+  %\VignetteIndexEntry{mitovizR}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -14,5 +14,12 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+## Introduction  
+
+The mitochondrial genome is the circular genomic DNA contained in mitochondria, organelles located in the cytoplasm of eukaryotic cells.  
+In humans, the mitochondrial genome is 16569 bp long, and contains 37 genes, 13 of which are protein-coding genes. Most of the others are tRNA-coding genes, while 2 are rRNA-coding.  
+
+The recent advances in high-throughput DNA sequencing allow a thorough exploration and analysis of mitochondrial variants, which are positions in which nucleotides differ from the reference human mitochondrial genome. 
 
 
