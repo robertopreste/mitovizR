@@ -26,7 +26,7 @@ plot_vcf <- function(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
     dataframe <- as.data.frame(getFIX(chrom), stringsAsFactors = F)
     p <- plot_df(dataframe, show_loci_names = show_loci_names,
                  show_loci_legend = show_loci_legend, title = title,
-                 save_plot = save_plot, save_to = save_to, verbose = verbose)
+                 save_plot = save_plot, save_to = save_to)
 
     return(p)
 }
