@@ -113,5 +113,7 @@ If you found a bug, or want to suggest an improvement, please feel free to open 
 
 ## Todo  
 
+* Plot variants from JSON  
+  - from [HmtDB](https://www.hmtdb.uniba.it) JSON  
 * Plot variants from BED files  
 
