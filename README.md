@@ -2,12 +2,12 @@
 mitovizR
 ========
 
-Plot variants on the human mitochondrial genome. Currently supports plotting variants contained in dataframes or VCF files.
+Plot variants on the human mitochondrial genome. Currently supports plotting variants contained in dataframes, VCF or JSON files.
 
 Overview
 --------
 
-mitovizR is a simple tool to plot human mitochondrial variants on a graphical representation of the human mitochondrial genome. It currently supports plotting variants stored in a dataframe or a VCF file, although other options are being developed (if you want to contribute, you're welcome!).
+mitovizR is a simple tool to plot human mitochondrial variants on a graphical representation of the human mitochondrial genome. It currently supports plotting variants stored in a dataframe or a VCF or JSON file, although other options are being developed (if you want to contribute, you're welcome!).
 
 Installation
 ------------
@@ -29,7 +29,7 @@ First of all, load the `mitovizR` package:
 library(mitovizR)
 ```
 
-The simplest example is when you already have a dataframe with a set of mitochondrial variants. In this case, a call to `plot_df` will plot all mitochondrial variants; **please note that variants position needs to be contained in a column named `POS`**.
+The simplest example is when you already have a dataframe with a set of mitochondrial variants. In this case, a call to `plot_df` will plot all mitochondrial variants; by default, this function will look for a `POS` column containing variants position, but custom column names can be specified using the `var_col` option.
 
 ``` r
 minidf 
@@ -94,7 +94,7 @@ plot_vcf("HG00119.vcf", save_plot = TRUE)
 
 This will create a file named `mitoviz_plot.png` in the current working directory.
 
-It is also possible to save the plot to a specific path and/or with a customm filename, using the `save_to` option:
+It is also possible to save the plot to a specific path and/or with a custom filename, using the `save_to` option:
 
 ``` r
 plot_vcf("HG00119.vcf", save_plot = TRUE, save_to = "my_folder/my_plot_name.png")
@@ -108,6 +108,5 @@ If you found a bug, or want to suggest an improvement, please feel free to open 
 Todo
 ----
 
--   Plot variants from JSON
--   from [HmtDB](https://www.hmtdb.uniba.it) JSON
+-   Plot variants from [HmtDB](https://www.hmtdb.uniba.it) JSON
 -   Plot variants from BED files
