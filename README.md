@@ -29,7 +29,7 @@ First of all, load the `mitovizR` package:
 library(mitovizR)
 ```
 
-The simplest example is when you already have a dataframe with a set of mitochondrial variants. In this case, a call to `plot_df` will plot all mitochondrial variants; by default, this function will look for a `POS` column containing variants position, but custom column names can be specified using the `var_col` option.
+The simplest example is when you already have a dataframe with a set of mitochondrial variants. In this case, a call to `plot_df` will plot all mitochondrial variants; by default, this function will look for a `POS` column containing variants position, but custom column names can be specified using the `pos_col` option.
 
 ``` r
 minidf 
@@ -53,6 +53,14 @@ plot_df(minidf)
 ```
 
 ![](man/figures/mitoviz_plot_df.png)
+
+It is possible to show a label on each variant with its position, reference and alternate allele, using the `show_var_labels` option.
+
+``` r
+plot_df(minidf, show_var_labels = TRUE)
+```
+
+![](man/figures/mitoviz_plot_df_labels.png)
 
 The `plot_vcf` function allows to plot human mitochondrial variants contained in a VCF file. In this example, a VCF file named "HG00119.vcf" and present in the current working directory is used:
 
