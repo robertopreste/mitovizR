@@ -5,8 +5,8 @@
 \title{Plot variants from a dataframe}
 \usage{
 plot_df(dataframe, var_col = "POS", show_loci_names = TRUE,
-  show_loci_legend = TRUE, title = "", save_plot = FALSE,
-  save_to = "mitoviz_plot.png")
+  show_loci_legend = TRUE, show_var_labels = FALSE, title = "",
+  save_plot = FALSE, save_to = "mitoviz_plot.png")
 }
 \arguments{
 \item{dataframe}{Name of the input dataframe}
@@ -16,6 +16,8 @@ plot_df(dataframe, var_col = "POS", show_loci_names = TRUE,
 \item{show_loci_names}{Show labels of loci names on the genome (default = TRUE)}
 
 \item{show_loci_legend}{Show legend for locus type colours (default = TRUE)}
+
+\item{show_var_labels}{Show labels with the position for each variant (default = FALSE)}
 
 \item{title}{Set plot title (default = "")}
 

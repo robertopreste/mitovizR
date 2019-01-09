@@ -5,8 +5,8 @@
 \title{Plot variants from a VCF}
 \usage{
 plot_vcf(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
-  title = "", save_plot = FALSE, save_to = "mitoviz_plot.png",
-  verbose = FALSE)
+  show_var_labels = FALSE, title = "", save_plot = FALSE,
+  save_to = "mitoviz_plot.png", verbose = FALSE)
 }
 \arguments{
 \item{vcf_file}{Path of the input VCF file}
@@ -14,6 +14,8 @@ plot_vcf(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
 \item{show_loci_names}{Show labels of loci names on the genome (default = TRUE)}
 
 \item{show_loci_legend}{Show legend for locus type colours (default = TRUE)}
+
+\item{show_var_labels}{Show labels with the position for each variant (default = FALSE)}
 
 \item{title}{Set plot title (default = "")}
 
