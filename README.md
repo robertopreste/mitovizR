@@ -29,7 +29,9 @@ First of all, load the `mitovizR` package:
 library(mitovizR)
 ```
 
-The simplest example is when you already have a dataframe with a set of mitochondrial variants. In this case, a call to `plot_df` will plot all mitochondrial variants; by default, this function will look for a `POS` column containing variants position, but custom column names can be specified using the `pos_col` option.
+### Plot variants from a dataframe
+
+The simplest example is when you already have a dataframe with a set of mitochondrial variants.
 
 ``` r
 minidf 
@@ -48,27 +50,34 @@ minidf
 | chrMT |  14905| NA  | G   | A   | NA   | PASS   |
 | chrMT |  15452| NA  | C   | A   | NA   | PASS   |
 
+In this case, a call to `plot_df()` will plot all mitochondrial variants; by default, this function will look for a `POS` column containing variants position, but custom column names can be specified using the `pos_col` option.
+
 ``` r
 plot_df(minidf)
+# specify the variant positions column name
+plot_df(minidf, pos_col = "position")
 ```
 
 ![](man/figures/mitoviz_plot_df.png)
 
-It is possible to show a label on each variant with its position, reference and alternate allele, using the `show_var_labels` option.
+It is possible to show a label on each variant with its position, reference and alternate allele, using the `show_var_labels` option. In this case, by default the `plot_df()` function will look for columns named `POS`, `REF` and `ALT`, containing respectively variant positions, reference alleles and alternate alleles; you can specify different column names using respectively the `pos_col`, `ref_col` and `alt_col` options.
 
 ``` r
 plot_df(minidf, show_var_labels = TRUE)
+# specify the variant positions, reference and alternate alleles column names
+plot_df(minidf, show_var_labels = TRUE, 
+        pos_col = "POS", ref_col = "REF", alt_col = "ALT")
 ```
 
 ![](man/figures/mitoviz_plot_df_labels.png)
 
-The `plot_vcf` function allows to plot human mitochondrial variants contained in a VCF file. In this example, a VCF file named "HG00119.vcf" and present in the current working directory is used:
+### Plot variants from a VCF file
+
+The `plot_vcf()` function allows to plot human mitochondrial variants contained in a VCF file. In this example, a VCF file named "HG00119.vcf" and present in the current working directory is used:
 
 ``` r
 plot_vcf("HG00119.vcf")
 ```
-
-![](man/figures/mitoviz_plot_vcf.png)
 
 It is also possible to specify whether the plot will show loci names and/or loci legend:
 
@@ -107,6 +116,55 @@ It is also possible to save the plot to a specific path and/or with a custom fil
 ``` r
 plot_vcf("HG00119.vcf", save_plot = TRUE, save_to = "my_folder/my_plot_name.png")
 ```
+
+### Plot variants from a JSON file
+
+Some tools will output mitochondrial variants in a JSON-formatted file; in this case, the `plot_json()` function is what you need. JSON files can usually be in two different formats:
+
+-   vector format, where variant positions are simply stored in a vector
+-   dataframe format, where each variant is stored in its own entry
+
+The `plot_json()` function can handle both cases, using a different argument for its `json_format` option.
+
+#### Vector-formatted JSON files
+
+An example of a vector-formatted JSON file is the following:
+
+``` r
+# content of json_vector.json
+["420", "1000", "3000", "5000", "10000"]
+```
+
+Using `json_format = "vector"` allows to plot variants from this file.
+
+``` r
+plot_json("json_vector.json", json_format = "vector")
+```
+
+![](man/figures/mitoviz_plot_json_vector.png)
+
+#### Dataframe-formatted JSON files
+
+An example of a dataframe-formatted JSON file is the following:
+
+``` r
+# content of json_dataframe.json
+[
+  {"feat1": "snp", "position": 420},
+  {"feat1": "snp", "position": 1000},
+  {"feat1": "snp", "position": 3000},
+  {"feat1": "snp", "position": 5000},
+  {"feat1": "snp", "position": 10000}
+]
+```
+
+In this case, just set `json_format = "dataframe"`. By default, the `plot_json()` function will look for a `POS` column with variant positions, but you can specify a different column name using the `pos_col` option.
+
+``` r
+plot_json("json_dataframe.json", json_format = "dataframe", pos_col = "position")
+```
+
+![](man/figures/mitoviz_plot_json_dataframe.png)
 
 Help
 ----
