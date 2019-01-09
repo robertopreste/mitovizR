@@ -4,7 +4,9 @@
 #' mitochondrial variants contained in the given dataframe.
 #'
 #' @param dataframe Name of the input dataframe
-#' @param var_col Name of column containing variants position (default = "POS")
+#' @param pos_col Name of column containing variants position (default = "POS")
+#' @param ref_col Name of column containing variants reference allele (default = "REF")
+#' @param alt_col Name of column containing variants alternate allele (default = "ALT")
 #' @param show_loci_names Show labels of loci names on the genome (default = TRUE)
 #' @param show_loci_legend Show legend for locus type colours (default = TRUE)
 #' @param show_var_labels Show labels with the position for each variant (default = FALSE)
@@ -19,22 +21,29 @@
 #'
 #' @export
 
-plot_df <- function(dataframe, var_col = "POS",
+plot_df <- function(dataframe, pos_col = "POS", ref_col = "REF", alt_col = "ALT",
                     show_loci_names = TRUE, show_loci_legend = TRUE,
                     show_var_labels = FALSE, title = "",
                     save_plot = FALSE, save_to = "mitoviz_plot.png") {
-    var_col_idx <- which(colnames(dataframe) == var_col)
-    dataframe[, var_col_idx] <- as.numeric(dataframe[, var_col_idx])
+    pos_col_idx <- which(colnames(dataframe) == pos_col)
+    ref_col_idx <- which(colnames(dataframe) == ref_col)
+    alt_col_idx <- which(colnames(dataframe) == alt_col)
+    dataframe[, pos_col_idx] <- as.numeric(dataframe[, pos_col_idx])
+    dataframe[, ref_col_idx] <- as.character(dataframe[, ref_col_idx])
+    dataframe[, alt_col_idx] <- as.character(dataframe[, alt_col_idx])
+    dataframe$var_label <- paste0(dataframe[, pos_col_idx],
+                                      dataframe[, ref_col_idx], ">",
+                                      dataframe[, alt_col_idx])
     p <- mito_plot(show_loci_names = show_loci_names,
                    show_loci_legend = show_loci_legend) +
         geom_point(data = dataframe,
-                   mapping = aes_string(x = 3, y = var_col)) +
+                   mapping = aes_string(x = 3, y = pos_col)) +
         labs(title = title)
     if (show_var_labels == TRUE) {
         p <- p +
             geom_label_repel(data = dataframe,
-                             mapping = aes_string(x = 3, y = var_col,
-                                                  label = var_col))
+                             mapping = aes_string(x = 3, y = pos_col,
+                                                  label = "var_label"))
     }
     if (save_plot == TRUE) {
         ggsave(filename = save_to, plot = p,

@@ -4,17 +4,21 @@
 \alias{plot_json}
 \title{Plot variants from a JSON file}
 \usage{
-plot_json(json_file, json_format = "vector", var_col = "POS",
-  show_loci_names = TRUE, show_loci_legend = TRUE,
-  show_var_labels = FALSE, title = "", save_plot = FALSE,
-  save_to = "mitoviz_plot.png")
+plot_json(json_file, json_format = "vector", pos_col = "POS",
+  ref_col = "REF", alt_col = "ALT", show_loci_names = TRUE,
+  show_loci_legend = TRUE, show_var_labels = FALSE, title = "",
+  save_plot = FALSE, save_to = "mitoviz_plot.png")
 }
 \arguments{
 \item{json_file}{Path of the input JSON file}
 
 \item{json_format}{JSON format used; allowed values are c("vector", "dataframe") (default = "vector")}
 
-\item{var_col}{When json_format = "dataframe", name of column containing variants position (default = "POS")}
+\item{pos_col}{When json_format = "dataframe", name of column containing variants position (default = "POS")}
+
+\item{ref_col}{When json_format = "dataframe", name of column containing variants reference allele (default = "REF")}
+
+\item{alt_col}{When json_format = "dataframe", name of column containing variants alternate allele (default = "ALT")}
 
 \item{show_loci_names}{Show labels of loci names on the genome (default = TRUE)}
 

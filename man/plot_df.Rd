@@ -4,14 +4,19 @@
 \alias{plot_df}
 \title{Plot variants from a dataframe}
 \usage{
-plot_df(dataframe, var_col = "POS", show_loci_names = TRUE,
-  show_loci_legend = TRUE, show_var_labels = FALSE, title = "",
-  save_plot = FALSE, save_to = "mitoviz_plot.png")
+plot_df(dataframe, pos_col = "POS", ref_col = "REF", alt_col = "ALT",
+  show_loci_names = TRUE, show_loci_legend = TRUE,
+  show_var_labels = FALSE, title = "", save_plot = FALSE,
+  save_to = "mitoviz_plot.png")
 }
 \arguments{
 \item{dataframe}{Name of the input dataframe}
 
-\item{var_col}{Name of column containing variants position (default = "POS")}
+\item{pos_col}{Name of column containing variants position (default = "POS")}
+
+\item{ref_col}{Name of column containing variants reference allele (default = "REF")}
+
+\item{alt_col}{Name of column containing variants alternate allele (default = "ALT")}
 
 \item{show_loci_names}{Show labels of loci names on the genome (default = TRUE)}
 
