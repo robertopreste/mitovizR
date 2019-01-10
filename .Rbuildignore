@@ -2,6 +2,7 @@
 ^\.Rproj\.user$
 ^\.DS_store$
 ^README\.Rmd$
-^HG00119.vcf$
-^json_vector.json$
-^json_dataframe.json$
+^HG00119\.vcf$
+^json_vector\.json$
+^json_dataframe\.json$
+^\.travis\.yml
