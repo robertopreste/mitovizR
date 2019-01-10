@@ -8,6 +8,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+[![Build Status](https://travis-ci.com/robertopreste/mitovizR.svg?branch=master)](https://travis-ci.com/robertopreste/mitovizR)
+
 # mitovizR  
 
 Plot variants on the human mitochondrial genome. Currently supports plotting variants contained in dataframes, VCF or JSON files.  

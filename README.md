@@ -1,4 +1,6 @@
 
+[![Build Status](https://travis-ci.com/robertopreste/mitovizR.svg?branch=master)](https://travis-ci.com/robertopreste/mitovizR)
+
 mitovizR
 ========
 
