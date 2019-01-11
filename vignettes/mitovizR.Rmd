@@ -35,5 +35,105 @@ install_github("robertopreste/mitovizR")
 
 This will download and install the latest development version of `mitovizR` right from its GitHub repository. This means that some of its features can still be in beta, and might not function as expected.  
 
+After installation, `mitovizR` can be loaded into R using:  
+
+```{r, eval=FALSE}
+library(mitovizR)
+```
+
+
+## Use cases  
+
+Human mitochondrial variants can be obtained and explored from several different sources; the most common are dataframes, VCF files and JSON files. `mitovizR` offers specific functions to plot human mitochondrial variants from each one of these input sources.  
+
+### Plot variants from a dataframe  
+
+Variants contained in an R dataframe can be plotted using the `plot_df()` function.  
+Supposing we have a dataframe `df` with the following content:  
+
+|CHROM |   POS|ID |REF |ALT |QUAL |FILTER |
+|:-----|-----:|:--|:---|:---|:----|:------|
+|chrMT |   709|NA |G   |A   |NA   |PASS   |
+|chrMT |   750|NA |A   |G   |NA   |PASS   |
+|chrMT |  1438|NA |A   |G   |NA   |PASS   |
+|chrMT |  3106|NA |CN  |C   |NA   |PASS   |
+|chrMT |  4769|NA |A   |G   |NA   |PASS   |
+|chrMT |  7028|NA |C   |T   |NA   |PASS   |
+|chrMT |  9389|NA |A   |G   |NA   |PASS   |
+|chrMT | 11719|NA |G   |A   |NA   |PASS   |
+|chrMT | 14905|NA |G   |A   |NA   |PASS   |
+|chrMT | 15452|NA |C   |A   |NA   |PASS   |  
+
+we can plot its variants with `plot_df(df)`.  
+
+By default, `plot_df()` looks for variants position in a `POS` column, variants reference allele in a `REF` column and variants alternate allele in a `ALT` column (this reflects the standard column names for VCF files). Different column names can be specified using respectively `pos_col`, `ref_col` and `alt_col`. In the case of the following dataframe:  
+
+|CHROM |   position|ID |reference |alternate |QUAL |FILTER |
+|:-----|----------:|:--|:---------|:---------|:----|:------|
+|chrMT |        709|NA |G         |A         |NA   |PASS   |
+|chrMT |        750|NA |A         |G         |NA   |PASS   |
+|chrMT |       1438|NA |A         |G         |NA   |PASS   |
+|chrMT |       3106|NA |CN        |C         |NA   |PASS   |
+|chrMT |       4769|NA |A         |G         |NA   |PASS   |
+|chrMT |       7028|NA |C         |T         |NA   |PASS   |
+|chrMT |       9389|NA |A         |G         |NA   |PASS   |
+|chrMT |      11719|NA |G         |A         |NA   |PASS   |
+|chrMT |      14905|NA |G         |A         |NA   |PASS   |
+|chrMT |      15452|NA |C         |A         |NA   |PASS   |
+
+we need to set the `pos_col` properly:  
+
+```{r, eval=FALSE}
+plot_df(df, pos_col = "position")
+```
+
+The reference and alternate allele columns are only required when the `show_var_labels` option is set to `TRUE`: this option shows a label with variants position and nucleotide change in the resulting plot. When using the above-shown dataframe, the correct function call is:  
+
+```{r, eval=FALSE}
+plot_df(df, show_var_labels = TRUE, 
+        pos_col = "position", ref_col = "reference", alt_col = "alternate")
+```
+
+By default, `plot_df()` will show loci names above each mitochondrial locus, as well as a legend explaining colours for different locus types (protein-coding, tRNA, rRNA, regulatory regions). Both these options can be disabled by setting respectively `show_loci_names` and `show_loci_legend` to `FALSE`:  
+
+```{r, eval=FALSE}
+plot_df(df, show_loci_names = FALSE)
+```
+
+```{r, eval=FALSE}
+plot_df(df, show_loci_legend = FALSE)
+```
+
+It is also possible to set a specific title to the resulting plot, using the `title` option, which accepts a string as its argument:  
+
+```{r, eval=FALSE}
+plot_df(df, title = "My mitochondrial plot")
+```
+
+Plots generated with `plot_df()` can be saved to a PNG file using the `save_plot = TRUE` option, and will be saved by default to a file called `mitoviz_plot.png`:  
+
+```{r, eval=FALSE}
+plot_df(df, save_plot = TRUE)
+```
+
+Custom output location can be specified using the `save_to` option, which accepts a string with a path or filename where the plot will be saved:  
+
+```{r, eval=FALSE}
+plot_df(df, save_plot = TRUE, save_to = "custom/path/myplot.png")
+```
+
+Please be aware that the `save_to` option only works when `save_plot` is set to `TRUE`, otherwise it will be ignored.  
+
+
+### Plot variants from a VCF file  
+
+TBD  
+
+### Plot variants from a JSON file  
+
+TBD  
+
+
+
 
 
