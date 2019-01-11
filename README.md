@@ -1,26 +1,26 @@
 
-[![Build Status](https://travis-ci.com/robertopreste/mitovizR.svg?branch=master)](https://travis-ci.com/robertopreste/mitovizR)
-
 mitovizR
 ========
+
+[![Build Status](https://travis-ci.com/robertopreste/mitovizR.svg?branch=master)](https://travis-ci.com/robertopreste/mitovizR)
 
 Plot variants on the human mitochondrial genome. Currently supports plotting variants contained in dataframes, VCF or JSON files.
 
 Overview
 --------
 
-mitovizR is a simple tool to plot human mitochondrial variants on a graphical representation of the human mitochondrial genome. It currently supports plotting variants stored in a dataframe or a VCF or JSON file, although other options are being developed (if you want to contribute, you're welcome!).
+mitovizR is a simple R package to plot human mitochondrial variants on a graphical representation of the human mitochondrial genome. It currently supports plotting variants stored in a dataframe or a VCF or JSON file, although other options are being developed (if you want to contribute, you're welcome!).
 
 Installation
 ------------
 
-mitovizR can be installed from GitHub using `devtools`:
+mitovizR can be installed in R from GitHub using `devtools`:
 
 ``` r
 devtools::install_github("robertopreste/mitovizR")
 ```
 
-Official installation from CRAN coming soon!
+Official installation from CRAN/Bioconductor coming soon!
 
 Usage
 -----
