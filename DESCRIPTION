@@ -1,7 +1,7 @@
 Package: mitovizR
 Type: Package
 Title: Plot Human Mitochondrial Variants
-Version: 0.1.0
+Version: 0.1.1
 Author: Roberto Preste
 Maintainer: Roberto Preste <roberto.preste@gmail.com>
 Authors@R: person("Roberto", "Preste", email = "roberto.preste@gmail.com", 
