@@ -18,7 +18,6 @@ mito_plot <- function(show_loci_names = TRUE, show_loci_legend = TRUE) {
         coord_polar(theta = "y", direction = -1) +
         xlim(c(0, 4)) +
         theme_void() +
-        #         theme_minimal() +
         theme(axis.text.y = element_blank(),
               legend.position = "bottom", legend.title = element_blank()) +
         xlab("") + ylab("") +
