@@ -12,7 +12,7 @@ License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: ggplot2, ggrepel, vcfR, jsonlite
-Suggests: knitr, rmarkdown
+Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr
 URL: https://github.com/robertopreste/mitovizR
 BugReports: https://github.com/robertopreste/mitovizR/issues
