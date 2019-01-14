@@ -65,7 +65,8 @@ mito_df <- function() {
     loci <- data.frame(locus = locus, lengths = lengths,
                        type = type, id = seq(39, 1),
                        ymax = ymax, ymin = ymin,
-                       hjust = hjust, vjust = vjust, angle = angle)
+                       hjust = hjust, vjust = vjust, angle = angle,
+                       stringsAsFactors = F)
 
     return(loci)
 }
