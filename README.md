@@ -2,7 +2,7 @@
 mitovizR
 ========
 
-[![Build Status](https://travis-ci.com/robertopreste/mitovizR.svg?branch=master)](https://travis-ci.com/robertopreste/mitovizR)
+[![Build Status](https://travis-ci.com/robertopreste/mitovizR.svg?branch=master)](https://travis-ci.com/robertopreste/mitovizR) [![codecov](https://codecov.io/gh/robertopreste/mitovizR/branch/master/graph/badge.svg)](https://codecov.io/gh/robertopreste/mitovizR)
 
 Plot variants on the human mitochondrial genome. Currently supports plotting variants contained in dataframes, VCF or JSON files.
 

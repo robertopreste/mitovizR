@@ -1,5 +1,4 @@
 context("Creating mitochondrial dataframe")
-# library(mitovizR)
 
 test_that("mito_df returns the correct dataframe", {
     df <- mito_df()
