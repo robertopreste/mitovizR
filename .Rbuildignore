@@ -6,3 +6,4 @@
 ^json_vector\.json$
 ^json_dataframe\.json$
 ^\.travis\.yml
+tests/figs/
