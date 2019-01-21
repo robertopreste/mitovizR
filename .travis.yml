@@ -1,7 +1,6 @@
 language: r
 
 os:
-  - windows
   - linux
   - os
 
