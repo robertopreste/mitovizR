@@ -28,8 +28,8 @@ plot_json <- function(json_file, json_format = "vector",
                       show_var_labels = FALSE,
                       title = "", save_plot = FALSE, save_to = "mitoviz_plot.png") {
     if (json_format == "vector") {
-        dataframe = data.frame(CHROM = "chrMT", POS = fromJSON(json_file),
-                               stringsAsFactors = F)
+        dataframe = data.frame(CHROM = "chrMT", POS = fromJSON(json_file), REF = "N",
+                               ALT = "N", stringsAsFactors = F)
         p <- plot_df(dataframe,
                      show_loci_names = show_loci_names,
                      show_loci_legend = show_loci_legend,
