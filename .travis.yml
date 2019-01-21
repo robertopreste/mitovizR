@@ -1,5 +1,10 @@
 language: r
 
+os:
+  - windows
+  - linux
+  - os
+
 r_packages:
   - covr
 
