@@ -2,7 +2,7 @@ language: r
 
 os:
   - linux
-  - os
+  - osx
 
 r_packages:
   - covr
