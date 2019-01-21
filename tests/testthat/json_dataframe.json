@@ -1,0 +1,18 @@
+[
+  {"POS": 750, "REF": "A", "ALT": "G"},
+  {"POS": 1438, "REF": "A", "ALT": "G"},
+  {"POS": 2706, "REF": "A", "ALT": "G"},
+  {"POS": 3106, "REF": "CN", "ALT": "C"},
+  {"POS": 4216, "REF": "T", "ALT": "C"},
+  {"POS": 7028, "REF": "C", "ALT": "T"},
+  {"POS": 8935, "REF": "C", "ALT": "T"},
+  {"POS": 9389, "REF": "A", "ALT": "G"},
+  {"POS": 9899, "REF": "T", "ALT": "C"},
+  {"POS": 11251, "REF": "A", "ALT": "G"},
+  {"POS": 11719, "REF": "G", "ALT": "A"},
+  {"POS": 12633, "REF": "C", "ALT": "A"},
+  {"POS": 13368, "REF": "G", "ALT": "A"},
+  {"POS": 14766, "REF": "C", "ALT": "T"},
+  {"POS": 15326, "REF": "A", "ALT": "G"},
+  {"POS": 16294, "REF": "C", "ALT": "T"}
+]
