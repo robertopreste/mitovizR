@@ -1,7 +1,8 @@
 #' Plot mitochondrial genome
 #'
 #' Creates the basic graphic representation of the human mitochondrial
-#' genome, that will be used to plot variants through \code{\link{plot_vcf}}.
+#' genome, that will be used to plot variants through \code{\link{plot_df}},
+#' \code{\link{plot_vcf}} or \code{\link{plot_json}}.
 #'
 #' @param show_loci_names Show labels of loci names on the genome (default = TRUE)
 #' @param show_loci_legend Show legend for locus type colours (default = TRUE)

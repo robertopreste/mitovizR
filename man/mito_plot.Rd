@@ -16,5 +16,6 @@ p ggplot2 polar plot showing the human mitochondrial genome
 }
 \description{
 Creates the basic graphic representation of the human mitochondrial
-genome, that will be used to plot variants through \code{\link{plot_vcf}}.
+genome, that will be used to plot variants through \code{\link{plot_df}},
+\code{\link{plot_vcf}} or \code{\link{plot_json}}.
 }
