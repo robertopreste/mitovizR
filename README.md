@@ -6,10 +6,25 @@ mitovizR
 
 Plot variants on the human mitochondrial genome. Currently supports plotting variants contained in dataframes, VCF or JSON files.
 
+------------------------------------------------------------------------
+
 Overview
 --------
 
 mitovizR is a simple R package to plot human mitochondrial variants on a graphical representation of the human mitochondrial genome. It currently supports plotting variants stored in a dataframe or a VCF or JSON file, although other options are being developed (if you want to contribute, you're welcome!).
+
+### Features
+
+-   Plot variants from a dataframe
+-   Plot variants from a VCF file
+    -   with a single sample
+    -   with multiple samples (multiple facets will be produced in the same plot)
+    -   showing Heteroplasmic Fraction of each variant
+-   Plot variants from a JSON file
+    -   from a list of variants
+    -   from a list with a dictionary for each variant
+
+------------------------------------------------------------------------
 
 Installation
 ------------
@@ -30,6 +45,18 @@ First of all, load the `mitovizR` package:
 ``` r
 library(mitovizR)
 ```
+
+The `mitovizR` package offers three main functions to plot variants from three different sources:
+
+``` r
+plot_df()    # to plot variants from a dataframe 
+plot_vcf()   # to plot variants from a VCF file 
+plot_json()  # to plot variants from a JSON file 
+```
+
+Further details about their usage and options may be found below.
+
+**Under construction!**
 
 ### Plot variants from a dataframe
 
@@ -172,9 +199,3 @@ Help
 ----
 
 If you found a bug, or want to suggest an improvement, please feel free to open an [issue](https://github.com/robertopreste/mitovizR/issues).
-
-Todo
-----
-
--   Plot variants from [HmtDB](https://www.hmtdb.uniba.it) JSON
--   Plot variants from BED files
