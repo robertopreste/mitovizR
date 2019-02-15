@@ -24,12 +24,27 @@ plot_vcf <- function(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
                      title = "", save_plot = FALSE, save_to = "mitoviz_plot.png",
                      verbose = FALSE) {
     vcf <- read.vcfR(vcf_file, verbose = verbose)
-    chrom <- create.chromR(vcf, verbose = verbose)
-    dataframe <- as.data.frame(getFIX(chrom), stringsAsFactors = F)
-    p <- plot_df(dataframe, show_loci_names = show_loci_names,
+    vcf_tidy <- vcfR2tidy(vcf, verbose = verbose)
+    if ("gt_HF" %in% colnames(vcf_tidy$gt)) {
+        vcf_df <- data.frame("POS" = vcf_tidy$fix$POS, "REF" = vcf_tidy$fix$REF,
+                            "ALT" = vcf_tidy$fix$ALT, "SAMPLE" = vcf_tidy$gt$Indiv,
+                            "GT" = vcf_tidy$gt$gt_GT, "HF" = vcf_tidy$gt$gt_HF,
+                            stringsAsFactors = F)
+        vcf_df <- vcf_df[!(vcf_df$HF %in% c("0.0", "0")), ]
+    } else {
+        vcf_df <- data.frame("POS" = vcf_tidy$fix$POS, "REF" = vcf_tidy$fix$REF,
+                            "ALT" = vcf_tidy$fix$ALT, "SAMPLE" = vcf_tidy$gt$Indiv,
+                            "GT" = vcf_tidy$gt$gt_GT, "HF" = 0.0,
+                            stringsAsFactors = F)
+        vcf_df <- vcf_df[!(vcf_df$GT %in% c("0/0", "0")), ]
+    }
+    p <- plot_df(vcf_df, show_loci_names = show_loci_names,
                  show_loci_legend = show_loci_legend,
                  show_var_labels = show_var_labels, title = title,
                  save_plot = save_plot, save_to = save_to)
-
+    # check if VCF has multiple samples
+    if (length(unique(vcf_df$SAMPLE)) > 1) {
+        p <- p + facet_wrap(~SAMPLE)
+    }
     return(p)
 }

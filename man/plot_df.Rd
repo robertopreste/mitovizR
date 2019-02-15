@@ -5,6 +5,7 @@
 \title{Plot variants from a dataframe}
 \usage{
 plot_df(dataframe, pos_col = "POS", ref_col = "REF", alt_col = "ALT",
+  sample_col = "SAMPLE", gt_col = "GT", hf_col = "HF",
   show_loci_names = TRUE, show_loci_legend = TRUE,
   show_var_labels = FALSE, title = "", save_plot = FALSE,
   save_to = "mitoviz_plot.png")
@@ -17,6 +18,12 @@ plot_df(dataframe, pos_col = "POS", ref_col = "REF", alt_col = "ALT",
 \item{ref_col}{Name of column containing variants reference allele (default = "REF")}
 
 \item{alt_col}{Name of column containing variants alternate allele (default = "ALT")}
+
+\item{sample_col}{Name of column containing sample name for each variant (default = "SAMPLE")}
+
+\item{gt_col}{Name of column containing GT information, mostly from VCF files (default = "GT")}
+
+\item{hf_col}{Name of column containing HF information, mostly from VCF files (default = "HF")}
 
 \item{show_loci_names}{Show labels of loci names on the genome (default = TRUE)}
 
