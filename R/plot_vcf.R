@@ -30,13 +30,15 @@ plot_vcf <- function(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
                             "ALT" = vcf_tidy$fix$ALT, "SAMPLE" = vcf_tidy$gt$Indiv,
                             "GT" = vcf_tidy$gt$gt_GT, "HF" = vcf_tidy$gt$gt_HF,
                             stringsAsFactors = F)
-        vcf_df <- vcf_df[!(vcf_df$HF %in% c("0.0", "0")), ]
+        # don't want to remove these variants, maybe I'll show them differently
+        # vcf_df <- vcf_df[!(vcf_df$HF %in% c("0.0", "0")), ]
     } else {
         vcf_df <- data.frame("POS" = vcf_tidy$fix$POS, "REF" = vcf_tidy$fix$REF,
                             "ALT" = vcf_tidy$fix$ALT, "SAMPLE" = vcf_tidy$gt$Indiv,
-                            "GT" = vcf_tidy$gt$gt_GT, "HF" = 0.0,
+                            "GT" = vcf_tidy$gt$gt_GT, "HF" = 0.5,
                             stringsAsFactors = F)
-        vcf_df <- vcf_df[!(vcf_df$GT %in% c("0/0", "0")), ]
+        # don't want to remove these variants, maybe I'll show them differently
+        # vcf_df <- vcf_df[!(vcf_df$GT %in% c("0/0", "0")), ]
     }
     p <- plot_df(vcf_df, show_loci_names = show_loci_names,
                  show_loci_legend = show_loci_legend,

@@ -51,7 +51,7 @@ plot_df <- function(dataframe, pos_col = "POS", ref_col = "REF", alt_col = "ALT"
     if (hf_col %in% colnames(dataframe)) {
         hf_col_idx <- which(colnames(dataframe) == hf_col)
     } else {
-        dataframe$HF <- 0.0
+        dataframe$HF <- 0.5
         hf_col_idx <- which(colnames(dataframe) == "HF")
     }
     dataframe[, hf_col_idx] <- as.double(dataframe[, hf_col_idx])
