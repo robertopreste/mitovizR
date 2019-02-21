@@ -4,7 +4,9 @@ author:
   name: "Roberto Preste" 
   email: "roberto.preste@gmail.com"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+    rmarkdown::html_vignette: 
+        toc: true
 vignette: >
   %\VignetteIndexEntry{mitovizR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,7 +14,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.width = 9, fig.height = 10)
 ```
 
 ## Introduction  
@@ -37,99 +39,112 @@ This will download and install the latest development version of `mitovizR` righ
 
 After installation, `mitovizR` can be loaded into R using:  
 
-```{r, eval=FALSE}
+```{r}
 library(mitovizR)
 ```
 
-
-## Use cases  
-
 Human mitochondrial variants can be obtained and explored from several different sources; the most common are dataframes, VCF files and JSON files. `mitovizR` offers specific functions to plot human mitochondrial variants from each one of these input sources.  
 
-### Plot variants from a dataframe  
+## Plot variants from a dataframe  
+
+### Basic plots  
 
 Variants contained in an R dataframe can be plotted using the `plot_df()` function.  
-Supposing we have a dataframe `df` with the following content:  
+Supposing we have a dataframe `sample_df` with the following content:  
 
-|CHROM |   POS|ID |REF |ALT |QUAL |FILTER |
-|:-----|-----:|:--|:---|:---|:----|:------|
-|chrMT |   709|NA |G   |A   |NA   |PASS   |
-|chrMT |   750|NA |A   |G   |NA   |PASS   |
-|chrMT |  1438|NA |A   |G   |NA   |PASS   |
-|chrMT |  3106|NA |CN  |C   |NA   |PASS   |
-|chrMT |  4769|NA |A   |G   |NA   |PASS   |
-|chrMT |  7028|NA |C   |T   |NA   |PASS   |
-|chrMT |  9389|NA |A   |G   |NA   |PASS   |
-|chrMT | 11719|NA |G   |A   |NA   |PASS   |
-|chrMT | 14905|NA |G   |A   |NA   |PASS   |
-|chrMT | 15452|NA |C   |A   |NA   |PASS   |  
-
-we can plot its variants with `plot_df(df)`.  
-
-By default, `plot_df()` looks for variants position in a `POS` column, variants reference allele in a `REF` column and variants alternate allele in a `ALT` column (this reflects the standard column names for VCF files). Different column names can be specified using respectively `pos_col`, `ref_col` and `alt_col`. In the case of the following dataframe:  
-
-|CHROM |   position|ID |reference |alternate |QUAL |FILTER |
-|:-----|----------:|:--|:---------|:---------|:----|:------|
-|chrMT |        709|NA |G         |A         |NA   |PASS   |
-|chrMT |        750|NA |A         |G         |NA   |PASS   |
-|chrMT |       1438|NA |A         |G         |NA   |PASS   |
-|chrMT |       3106|NA |CN        |C         |NA   |PASS   |
-|chrMT |       4769|NA |A         |G         |NA   |PASS   |
-|chrMT |       7028|NA |C         |T         |NA   |PASS   |
-|chrMT |       9389|NA |A         |G         |NA   |PASS   |
-|chrMT |      11719|NA |G         |A         |NA   |PASS   |
-|chrMT |      14905|NA |G         |A         |NA   |PASS   |
-|chrMT |      15452|NA |C         |A         |NA   |PASS   |
-
-we need to set the `pos_col` properly:  
-
-```{r, eval=FALSE}
-plot_df(df, pos_col = "position")
+```{r, echo=FALSE}
+load("../tests/testthat/sample_df.RData")
+knitr::kable(sample_df)
 ```
 
-The reference and alternate allele columns are only required when the `show_var_labels` option is set to `TRUE`: this option shows a label with variants position and nucleotide change in the resulting plot. When using the above-shown dataframe, the correct function call is:  
+We can plot its variants with `plot_df(sample_df)`:  
 
-```{r, eval=FALSE}
-plot_df(df, show_var_labels = TRUE, 
+```{r}
+plot_df(sample_df)
+```
+
+
+This works right out of the box, because by default `plot_df()` looks for variants position in the `POS` column, variants reference allele in the `REF` column, variants alternate allele in the `ALT` column, sample names in the `SAMPLE` column, genotypes in the `GT` column and heteroplasmic fractions in the `HF` column.  
+Different column names can be specified using respectively `pos_col`, `ref_col`, `alt_col`, `sample_col`, `gt_col` and `hf_col`. In the case of the following dataframe `sample_2_df` column names are custom:  
+
+```{r, echo=FALSE}
+load("../tests/testthat/sample_2_df.RData")
+knitr::kable(sample_2_df)
+```
+
+For the simplest plot, we only need to adjust the `pos_col` option: 
+
+```{r}
+plot_df(sample_2_df, pos_col = "position")
+```
+
+### Heteroplasmic fractions  
+
+Heteroplasmic fractions are useful to evaluate the ratio at which a specific variant is found in the given sample; `plot_df()` can exploit this information to plot variants with HF = 1.0 on the outer border of the mitochondrial circle, those with HF = 0.0 on the inner border and all the others according to their actual HF value. This is done automatically if a column with heteroplasmic fraction values is present (by default `HF`, if not set differently using the `hf_col` option); otherwise, variants will simply be shown in the middle of the circular plot (as if they all had HF = 0.5 - see plot above).  
+
+```{r}
+plot_df(sample_2_df, pos_col = "position", hf_col = "hf_val")
+```
+
+### Variant labels  
+
+We may want to show labels with variants position and nucleotide change, to better identify variants on the plot. This can be accomplished by setting the `show_var_labels` option to `TRUE`:  
+
+```{r}
+plot_df(sample_df, show_var_labels = TRUE)
+```
+
+When using a dataframe with custom column names, however, we need to also set the `ref_col` and `alt_col` accordingly:  
+
+```{r}
+plot_df(sample_2_df, show_var_labels = TRUE, 
         pos_col = "position", ref_col = "reference", alt_col = "alternate")
 ```
 
-By default, `plot_df()` will show loci names above each mitochondrial locus, as well as a legend explaining colours for different locus types (protein-coding, tRNA, rRNA, regulatory regions). Both these options can be disabled by setting respectively `show_loci_names` and `show_loci_legend` to `FALSE`:  
+
+**Please be aware that when using a dataframe with custom column names, the `pos_col` option must always be set if that column is not called `POS`, regardless of any other possible option.**  
+
+### Plot details  
+
+By default, `plot_df()` will show the locus name above each mitochondrial locus, as well as a legend explaining colours used for different locus types (protein-coding, tRNA, rRNA, regulatory regions). Both these options can be disabled by setting respectively `show_loci_names` and `show_loci_legend` to `FALSE`:  
+
+```{r}
+plot_df(sample_df, show_loci_names = FALSE)
+```
+
+```{r}
+plot_df(sample_df, show_loci_legend = FALSE)
+```
+
+It is also possible to add a specific title to the resulting plot, using the `title` option, which accepts a string as its argument:  
+
+```{r}
+plot_df(sample_df, title = "My mitochondrial variants")
+```
+
+### Saving plots  
+
+Plots generated with `plot_df()` can be saved to a PNG file using the `save_plot = TRUE` option, and a custom output location can be specified using the `save_to` option, which accepts a string with the path or filename where the plot will be saved. By default, it will be saved in the current working directory, using the filename `mitoviz_plot.png`.  
 
 ```{r, eval=FALSE}
-plot_df(df, show_loci_names = FALSE)
+# plot will be saved in ./mitoviz_plot.png
+plot_df(sample_df, save_plot = TRUE)
 ```
 
 ```{r, eval=FALSE}
-plot_df(df, show_loci_legend = FALSE)
+# plot will be saved in ../my_dir/my_plot.png
+plot_df(sample_df, save_plot = TRUE, save_to = "../my_dir/my_plot.png")
 ```
 
-It is also possible to set a specific title to the resulting plot, using the `title` option, which accepts a string as its argument:  
 
-```{r, eval=FALSE}
-plot_df(df, title = "My mitochondrial plot")
-```
-
-Plots generated with `plot_df()` can be saved to a PNG file using the `save_plot = TRUE` option, and will be saved by default to a file called `mitoviz_plot.png`:  
-
-```{r, eval=FALSE}
-plot_df(df, save_plot = TRUE)
-```
-
-Custom output location can be specified using the `save_to` option, which accepts a string with a path or filename where the plot will be saved:  
-
-```{r, eval=FALSE}
-plot_df(df, save_plot = TRUE, save_to = "custom/path/myplot.png")
-```
-
-Please be aware that the `save_to` option only works when `save_plot` is set to `TRUE`, otherwise it will be ignored.  
+**Please be aware that the `save_to` option only works when `save_plot` is set to `TRUE`, otherwise it will be ignored.**  
 
 
-### Plot variants from a VCF file  
+## Plot variants from a VCF file  
 
 TBD  
 
-### Plot variants from a JSON file  
+## Plot variants from a JSON file  
 
 TBD  
 
