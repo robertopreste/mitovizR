@@ -5,7 +5,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.width = 9, fig.height = 10)
 ```
 
 # mitovizR  
@@ -41,6 +41,13 @@ mitovizR can be installed in R from GitHub using `devtools`:
 devtools::install_github("robertopreste/mitovizR")
 ```
 
+It is suggested to also build the package vignette when installing `mitovizR`, where all the functionalities are better explained:  
+
+```{r, eval=FALSE}
+devtools::install_github("robertopreste/mitovizR", build_vignettes = TRUE)
+```
+
+
 Official installation from CRAN/Bioconductor coming soon!  
 
 ## Usage  
@@ -59,7 +66,7 @@ plot_vcf()   # to plot variants from a VCF file
 plot_json()  # to plot variants from a JSON file 
 ```
 
-Further details about their usage and options may be found below.  
+Further details about their usage and options may be found in the package vignette, which can be built using `devtools::install_github("robertopreste/mitovizR", build_vignettes = TRUE)`.  
 
 **Under construction!**  
 
@@ -67,90 +74,69 @@ Further details about their usage and options may be found below.
 
 The simplest example is when you already have a dataframe with a set of mitochondrial variants.  
 
-```{r, eval=FALSE}
-minidf 
+```{r, echo=FALSE}
+load("tests/testthat/sample_df.RData")
+knitr::kable(sample_df)
 ```
 
-|CHROM |   POS|ID |REF |ALT |QUAL |FILTER |
-|:-----|-----:|:--|:---|:---|:----|:------|
-|chrMT |   709|NA |G   |A   |NA   |PASS   |
-|chrMT |   750|NA |A   |G   |NA   |PASS   |
-|chrMT |  1438|NA |A   |G   |NA   |PASS   |
-|chrMT |  3106|NA |CN  |C   |NA   |PASS   |
-|chrMT |  4769|NA |A   |G   |NA   |PASS   |
-|chrMT |  7028|NA |C   |T   |NA   |PASS   |
-|chrMT |  9389|NA |A   |G   |NA   |PASS   |
-|chrMT | 11719|NA |G   |A   |NA   |PASS   |
-|chrMT | 14905|NA |G   |A   |NA   |PASS   |
-|chrMT | 15452|NA |C   |A   |NA   |PASS   |
-
-In this case, a call to `plot_df()` will plot all mitochondrial variants; by default, this function will look for a `POS` column containing variants position, but custom column names can be specified using the `pos_col` option.  
+In this case, a call to `plot_df()` will plot all mitochondrial variants.  
 
 ```{r, eval=FALSE}
-plot_df(minidf)
-# specify the variant positions column name
-plot_df(minidf, pos_col = "position")
+plot_df(sample_df)
 ```
 
-![](man/figures/mitoviz_plot_df.png)
+![](man/figures/mitoviz_plot_df.png)  
 
 It is possible to show a label on each variant with its position, reference and alternate allele, using the `show_var_labels` option. In this case, by default the `plot_df()` function will look for columns named `POS`, `REF` and `ALT`, containing respectively variant positions, reference alleles and alternate alleles; you can specify different column names using respectively the `pos_col`, `ref_col` and `alt_col` options.  
 
 ```{r, eval=FALSE}
-plot_df(minidf, show_var_labels = TRUE)
+plot_df(sample_df, show_var_labels = TRUE)
 # specify the variant positions, reference and alternate alleles column names
-plot_df(minidf, show_var_labels = TRUE, 
+plot_df(sample_df, show_var_labels = TRUE, 
         pos_col = "POS", ref_col = "REF", alt_col = "ALT")
 ```
 
-![](man/figures/mitoviz_plot_df_labels.png)
+![](man/figures/mitoviz_plot_df_labels.png)  
+
+Variants are shown according to their heteroplasmic fraction (HF), plotting variants with HF = 1.0 on the outer border of the mitochondrial circle, those with HF = 0.0 on the inner border and all the others according to their actual HF value. This is done automatically if a column with heteroplasmic fraction values is present (by default `HF`, if not set differently using the `hf_col` option); otherwise, variants will simply be shown in the middle of the circular plot (as if they all had HF = 0.5).  
+
+`plot_df()` deal with a dataframe with multiple samples easily, creating a separate plot for each sample listed in the `SAMPLE` column (this default can be changed using the `sample_col` option).  
+
+```{r, eval=FALSE}
+plot_df(sample_multi_df)
+# specify the sample column name 
+plot_df(sample_multi_df, sample_col = "sample_column")
+```
+
+![](man/figures/mitoviz_plot_multi_df.png)  
+
+By default, the plot will be returned and shown; if you want to save the plot to a file, just use the `save_plot` option, which will save the current plot to `./mitoviz_plot.png`. You can specify a custom output path and filename using the `save_to` option.  
+
+```{r, eval=FALSE}
+plot_df(sample_df, save_plot = TRUE)
+# specify a custom output path
+plot_df(sample_df, save_plot = TRUE, save_to = "../my_dir/my_plot.png")
+```
+
 
 ### Plot variants from a VCF file  
 
-The `plot_vcf()` function allows to plot human mitochondrial variants contained in a VCF file. In this example, a VCF file named "HG00119.vcf" and present in the current working directory is used:  
+The `plot_vcf()` function allows to plot human mitochondrial variants contained in a VCF file.  
 
 ```{r, eval=FALSE}
-plot_vcf("HG00119.vcf")
+plot_vcf("sample_vcf.vcf")
 ```
 
-It is also possible to specify whether the plot will show loci names and/or loci legend:  
+![](man/figures/mitoviz_plot_vcf.png)  
+
+Multiple plots are automatically created from a multi-sample VCF file.  
 
 ```{r, eval=FALSE}
-# do not show loci names
-plot_vcf("HG00119.vcf", show_loci_names = FALSE)
+plot_vcf("sample_multi.vcf")
 ```
 
-![](man/figures/mitoviz_plot_no_loci_names.png)
+![](man/figures/mitoviz_plot_multi_vcf.png)  
 
-```{r, eval=FALSE}
-# do not show loci legend 
-plot_vcf("HG00119.vcf", show_loci_legend = FALSE)
-```
-
-![](man/figures/mitoviz_plot_no_loci_legend.png)
-
-A specific title can be added to the plot using the `title` option:  
-
-```{r, eval=FALSE}
-plot_vcf("HG00119.vcf", title = "My mito plot")
-```
-
-![](man/figures/mitoviz_plot_title.png)
-
-
-By default, the plot will be returned and shown; if you want to save the plot to a file, just use the `save_plot` option:  
-
-```{r, eval=FALSE}
-plot_vcf("HG00119.vcf", save_plot = TRUE)
-```
-
-This will create a file named `mitoviz_plot.png` in the current working directory.  
-
-It is also possible to save the plot to a specific path and/or with a custom filename, using the `save_to` option:  
-
-```{r, eval=FALSE}
-plot_vcf("HG00119.vcf", save_plot = TRUE, save_to = "my_folder/my_plot_name.png")
-```
 
 ### Plot variants from a JSON file  
 

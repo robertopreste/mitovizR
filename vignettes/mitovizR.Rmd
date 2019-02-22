@@ -26,6 +26,8 @@ The recent advances in high-throughput DNA sequencing allow a thorough explorati
 
 While there are lots of tools available to analyse human mitochondrial genomes, visualisation of human mitochondrial variants usually relies on researchers' knowledge of general programming languages with visualisation capabilities. In order to fill this gap, I developed the `mitovizR` package, which offers several visualisation options right out of the box, with a simple user interface using the R programming language.  
 
+___  
+
 ## Installation  
 
 `mitovizR` can be installed using `devtools::install_github()`, as follows:  
@@ -44,6 +46,8 @@ library(mitovizR)
 ```
 
 Human mitochondrial variants can be obtained and explored from several different sources; the most common are dataframes, VCF files and JSON files. `mitovizR` offers specific functions to plot human mitochondrial variants from each one of these input sources.  
+
+___  
 
 ## Plot variants from a dataframe  
 
@@ -80,7 +84,7 @@ plot_df(sample_2_df, pos_col = "position")
 
 ### Heteroplasmic fractions  
 
-Heteroplasmic fractions are useful to evaluate the ratio at which a specific variant is found in the given sample; `plot_df()` can exploit this information to plot variants with HF = 1.0 on the outer border of the mitochondrial circle, those with HF = 0.0 on the inner border and all the others according to their actual HF value. This is done automatically if a column with heteroplasmic fraction values is present (by default `HF`, if not set differently using the `hf_col` option); otherwise, variants will simply be shown in the middle of the circular plot (as if they all had HF = 0.5 - see plot above).  
+Heteroplasmic fractions (HF) are useful to evaluate the ratio at which a specific variant is found in the given sample; `plot_df()` can exploit this information to plot variants with HF = 1.0 on the outer border of the mitochondrial circle, those with HF = 0.0 on the inner border and all the others according to their actual HF value. This is done automatically if a column with heteroplasmic fraction values is present (by default `HF`, if not set differently using the `hf_col` option); otherwise, variants will simply be shown in the middle of the circular plot (as if they all had HF = 0.5 - see plot above).  
 
 ```{r}
 plot_df(sample_2_df, pos_col = "position", hf_col = "hf_val")
@@ -103,6 +107,24 @@ plot_df(sample_2_df, show_var_labels = TRUE,
 
 
 **Please be aware that when using a dataframe with custom column names, the `pos_col` option must always be set if that column is not called `POS`, regardless of any other possible option.**  
+
+### Multiple samples  
+
+It may be the case that the dataframe contains variants coming from multiple samples, as in this one:  
+
+```{r, echo=FALSE}
+load("../tests/testthat/sample_multi_df.RData")
+knitr::kable(sample_multi_df)
+```
+
+In this case, `plot_df()` will automatically recognise the two samples listed in the `SAMPLE` column and create two separate plots:  
+
+```{r}
+plot_df(sample_multi_df)
+```
+
+If the column listing samples has a different name, simply use the `sample_col` option and set it accordingly.  
+
 
 ### Plot details  
 
@@ -139,16 +161,79 @@ plot_df(sample_df, save_plot = TRUE, save_to = "../my_dir/my_plot.png")
 
 **Please be aware that the `save_to` option only works when `save_plot` is set to `TRUE`, otherwise it will be ignored.**  
 
+___  
 
 ## Plot variants from a VCF file  
 
-TBD  
+### Basic plots  
+
+Variants contained in a VCF file can be plotted using the `plot_vcf()` function.  
+Supposing we have a classic VCF file `sample_vcf.vcf` with some mitochondrial variants, we can plot them with `plot_vcf("sample_vcf.vcf")`:  
+
+```{r, echo=FALSE}
+knitr::opts_knit$set(root.dir = '../tests/testthat/')
+```
+
+```{r}
+plot_vcf("sample_vcf.vcf")
+```
+
+By default `plot_vcf()` looks for standard VCF column names (e.g. variants position in the `POS` column, variants reference allele in the `REF` column, variants alternate allele in the `ALT` column).  
+
+### Heteroplasmic fractions  
+
+Heteroplasmic fractions are useful to evaluate the ratio at which a specific variant is found in the given sample; `plot_vcf()` can exploit this information to plot variants with HF = 1.0 on the outer border of the mitochondrial circle, those with HF = 0.0 on the inner border and all the others according to their actual HF value. This is done automatically if an `HF` feature is specified in the `FORMAT` section of the VCF file; otherwise, variants will simply be shown in the middle of the circular plot (as if they all had HF = 0.5).  
+
+
+### Variant labels  
+
+We may want to show labels with variants position and nucleotide change, to better identify variants on the plot. This can be accomplished by setting the `show_var_labels` option to `TRUE`:  
+
+```{r}
+plot_vcf("sample_vcf.vcf", show_var_labels = TRUE)
+```
+
+### Multiple samples  
+
+If working with a multi-sample VCF file, `plot_vcf()` will automatically recognise that and create a separate plot for each sample:  
+
+```{r}
+plot_vcf("sample_multi.vcf")
+```
+
+### Plot details  
+
+By default, `plot_vcf()` will show the locus name above each mitochondrial locus, as well as a legend explaining colours used for different locus types (protein-coding, tRNA, rRNA, regulatory regions). Both these options can be disabled by setting respectively `show_loci_names` and `show_loci_legend` to `FALSE`:  
+
+```{r}
+plot_vcf("sample_vcf.vcf", show_loci_names = FALSE)
+```
+
+```{r}
+plot_vcf("sample_vcf.vcf", show_loci_legend = FALSE)
+```
+
+It is also possible to add a specific title to the resulting plot, using the `title` option, which accepts a string as its argument:  
+
+```{r}
+plot_vcf("sample_vcf.vcf", title = "My mitochondrial variants")
+```
+
+### Saving plots  
+
+Plots generated with `plot_vcf()` can be saved to a PNG file using the `save_plot = TRUE` option, and a custom output location can be specified using the `save_to` option, which accepts a string with the path or filename where the plot will be saved. By default, it will be saved in the current working directory, using the filename `mitoviz_plot.png`.  
+
+```{r, eval=FALSE}
+# plot will be saved in ./mitoviz_plot.png
+plot_vcf("sample_vcf.vcf", save_plot = TRUE)
+```
+
+```{r, eval=FALSE}
+# plot will be saved in ../my_dir/my_plot.png
+plot_vcf("sample_vcf.vcf", save_plot = TRUE, save_to = "../my_dir/my_plot.png")
+```
 
 ## Plot variants from a JSON file  
 
 TBD  
-
-
-
-
 
