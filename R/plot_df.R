@@ -70,10 +70,12 @@ plot_df <- function(dataframe, pos_col = "POS", ref_col = "REF", alt_col = "ALT"
                              mapping = aes_string(x = "x_col", y = pos_col,
                                                   label = "var_label"))
     }
+    if (length(unique(dataframe$SAMPLE)) > 1) {
+        p <- p + facet_wrap(~SAMPLE)
+    }
     if (save_plot == TRUE) {
         ggsave(filename = save_to, plot = p,
                height = 10.7, width = 9.46, units = "in")
     }
-
     return(p)
 }

@@ -44,9 +44,5 @@ plot_vcf <- function(vcf_file, show_loci_names = TRUE, show_loci_legend = TRUE,
                  show_loci_legend = show_loci_legend,
                  show_var_labels = show_var_labels, title = title,
                  save_plot = save_plot, save_to = save_to)
-    # check if VCF has multiple samples
-    if (length(unique(vcf_df$SAMPLE)) > 1) {
-        p <- p + facet_wrap(~SAMPLE)
-    }
     return(p)
 }
